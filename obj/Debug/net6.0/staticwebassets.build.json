@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "Hash": "k0txBYRxYiC1qrqvumh93tfFRNGTj9yHIAU3/lef6AI=",
+  "Source": "EncuestadorWeb",
+  "BasePath": "_content/EncuestadorWeb",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "EncuestadorWeb\\wwwroot",
+      "Source": "EncuestadorWeb",
+      "ContentRoot": "C:\\Users\\lizet\\OneDrive\\Documentos\\EncuestadorWeb\\wwwroot\\",
+      "BasePath": "_content/EncuestadorWeb",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\lizet\\OneDrive\\Documentos\\EncuestadorWeb\\wwwroot\\css\\index.css",
+      "SourceId": "EncuestadorWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lizet\\OneDrive\\Documentos\\EncuestadorWeb\\wwwroot\\",
+      "BasePath": "_content/EncuestadorWeb",
+      "RelativePath": "css/index.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\index.css"
+    },
+    {
+      "Identity": "C:\\Users\\lizet\\OneDrive\\Documentos\\EncuestadorWeb\\wwwroot\\favicon.ico",
+      "SourceId": "EncuestadorWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lizet\\OneDrive\\Documentos\\EncuestadorWeb\\wwwroot\\",
+      "BasePath": "_content/EncuestadorWeb",
+      "RelativePath": "favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.ico"
+    }
+  ]
+}

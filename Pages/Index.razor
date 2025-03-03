@@ -1,0 +1,108 @@
+@page "/"
+@using EncuestadorWeb.Data
+@using EncuestadorWeb.Models
+@inject AppDbContext DbContext
+@inject NavigationManager Navigation
+
+<PageTitle>Ejemplo Encuesta</PageTitle>
+
+<div>
+  <EditForm Model="@respuestas" OnValidSubmit="AgregarRespuestas">
+    @for (int i = 0; i < preguntas.Count; i++)
+    {
+      var pregunta = preguntas[i];
+      var precioTaza = 20 * (i + 1);
+
+      <div>
+        <h4>@pregunta.Texto</h4>
+        <InputRadioGroup @bind-Value="respuestas[pregunta.Id].IdRespuesta">
+          @foreach (var opcion in pregunta.Opciones)
+          {
+            <InputRadio Value="@opcion.Value" id="@($"pregunta{pregunta.Id}_opcion{opcion.Value}")" />
+            <label for="@($"pregunta{pregunta.Id}_opcion{opcion.Value}")">@opcion.Texto</label>
+            <br>
+          }
+        </InputRadioGroup>
+      </div>
+      <br>
+    }
+    <button type="submit">Guardar</button>
+  </EditForm>
+</div>
+
+@code {
+  // Modelo para las respuestas
+  private Dictionary<int, EncuestaRespuesta> respuestas = new();
+
+  // Valores predefinidos
+  public int IdEncuesta = 18;
+  public int IdCalificacion = 5;
+  public int IdUsuario = 3;
+  public string Observaciones = "N/A";
+
+  // Lista de preguntas con sus opciones
+  private List<Pregunta> preguntas = new()
+  {
+    new Pregunta { Id = 1, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 2, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 3, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 4, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 5, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 6, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 7, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 8, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 9, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" },
+    new Pregunta { Id = 10, Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?" }
+  };
+
+  protected override void OnInitialized()
+  {
+    // Inicializar el diccionario de respuestas
+    foreach (var pregunta in preguntas)
+    {
+      respuestas[pregunta.Id] = new EncuestaRespuesta
+      {
+        IdPregunta = pregunta.Id,
+        IdEncuesta = IdEncuesta,
+        IdCalificacion = IdCalificacion,
+        IdUsuario = IdUsuario,
+        Observaciones = Observaciones
+      };
+
+      // Definir las opciones de respuesta para cada pregunta
+      pregunta.Opciones = new List<Opcion>
+      {
+        new Opcion { Value = 1, Texto = "Quedarte con la taza" },
+        new Opcion { Value = 2, Texto = $"Vender la taza por {20 * pregunta.Id} pesos" }
+      };
+    }
+  }
+
+  private async Task AgregarRespuestas()
+  {
+    // Guardar cada respuesta en la base de datos
+    foreach (var respuesta in respuestas.Values)
+    {
+      DbContext.EncuestaRespuestas.Add(respuesta);
+    }
+
+    await DbContext.SaveChangesAsync();
+
+    // Redirigir a la página principal o mostrar un mensaje de éxito
+    Navigation.NavigateTo("/");
+  }
+
+  // Clases para preguntas y opciones
+  public class Pregunta
+  {
+    public int Id { get; set; }
+    public string Texto { get; set; }
+    public List<Opcion> Opciones { get; set; }
+  }
+
+  public class Opcion
+  {
+    public int Value { get; set; }
+    public string Texto { get; set; }
+  }
+}
