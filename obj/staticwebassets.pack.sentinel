@@ -38,6 +38,7 @@
 2.0
 2.0
 2.0
+<<<<<<< HEAD
 2.0
 2.0
 2.0
@@ -54,3 +55,5 @@
 2.0
 2.0
 2.0
+=======
+>>>>>>> 1d49a78 (Update Conteo Correcto del precio de las tazas y nuevo archivo para la validación de que las preguntas no vayan vacías)
