@@ -4,12 +4,10 @@
 @inject AppDbContext DbContext
 @inject NavigationManager Navigation
 
-@* EncuestadorWeb archivo ya tiene la validacion de que todas las respuestas sean respondidas *@
-
 <PageTitle>Ejemplo Encuesta</PageTitle>
 
 <div>
-  <EditForm Model="@respuestas">
+  <EditForm Model="@respuestas" OnValidSubmit="AgregarRespuestas">
     @foreach (var pregunta in preguntas)
     {
       <div>
@@ -21,27 +19,30 @@
             <label for="@($"pregunta{pregunta.Id}_opcion{opcion.Value}")">@opcion.Texto</label>
             <br>
           }
+
         </InputRadioGroup>
       </div>
       <br>
     }
-    <button type="button" @onclick="ValidarYGuardar">Guardar</button>
+    <button type="submit">Guardar</button>
   </EditForm>
 </div>
 
 @code {
+
   private Dictionary<int, EncuestaRespuesta> respuestas = new();
-  public int IdEncuesta = 18, IdCalificacion = 1, IdUsuario = 7;
+  public int IdEncuesta = 18, IdCalificacion = 5, IdUsuario = 3;
   public string Observaciones = "N/A";
 
-  private List<Pregunta> preguntas = Enumerable.Range(166, 25).Select((i, index) => new Pregunta
+
+  private List<Pregunta> preguntas = Enumerable.Range(1, 25).Select(i => new Pregunta
   {
     Id = i,
-    Texto = "Si tuvieras una taza en tu propiedad, ¿Qué eliges?",
+    Texto = "Si tuvieras una taza en tu propiedad, ¿Que eliges?",
     Opciones = new List<Opcion> {
       new Opcion { Value = 1, Texto = "Quedarte con la taza" },
-      new Opcion { Value = 2, Texto = $"Vender la taza por {20 * (index + 1)} pesos" }
-    }
+      new Opcion { Value = 2, Texto = $"Vender la taza por {20 * i} pesos" },
+      } 
   }).ToList();
 
   protected override void OnInitialized()
@@ -56,33 +57,12 @@
     });
   }
 
-  private async Task ValidarYGuardar()
+  private async Task AgregarRespuestas()
   {
-    if (respuestas.Values.Any(r => r.IdRespuesta == 0))
-    {
-      await JS.InvokeVoidAsync("Swal.fire", new
-      {
-        icon = "error",
-        title = "Faltan respuestas",
-        text = "Debes contestar todas las preguntas antes de continuar."
-      });
-      return;
-    }
-
     DbContext.EncuestaRespuestas.AddRange(respuestas.Values);
     await DbContext.SaveChangesAsync();
-
-    await JS.InvokeVoidAsync("Swal.fire", new
-    {
-      icon = "success",
-      title = "Respuestas guardadas",
-      text = "Tu encuesta ha sido registrada correctamente."
-    });
-
     Navigation.NavigateTo("/");
   }
-
-  [Inject] private IJSRuntime JS { get; set; }
 
   public class Pregunta
   {
@@ -96,4 +76,6 @@
     public int Value { get; set; }
     public string Texto { get; set; }
   }
+
+
 }
