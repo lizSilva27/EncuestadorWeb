@@ -1,0 +1,50 @@
+@page "/mostrar-encuestas-status"
+@using EncuestadorWeb.Models
+@inject EncuestadorWeb.Services.EncuestaService EncuestaService
+
+<section>
+  <h3>Lista de Estados de Encuestas</h3>
+
+  @if (encuestasStatus == null)
+  {
+    <p>Cargando encuestas...</p>
+  }
+  else if (!encuestasStatus.Any())
+  {
+    <p>No hay datos para mostrar.</p>
+  }
+  else
+  {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Id Encuestas Asignada</th>
+          <th>Id Usuario</th>
+          <th>Id Status encusta</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var status in encuestasStatus)
+        {
+          <tr>
+            <td>@status.Id</td>
+            <td>@status.IdEncuestaAsig</td>
+            <td>@status.IdUsuario</td>
+            <td>@status.StatusEncuesta</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>
+
+@code {
+    private List<EncuestaStatus> encuestasStatus = new List<EncuestaStatus>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtener los estados de encuestas de la base de datos
+        encuestasStatus = await EncuestaService.ObtenerEncuestasAsync();
+    }
+}

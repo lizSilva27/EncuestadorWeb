@@ -1,19 +1,25 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using EncuestadorWeb.Models;
 using EncuestadorWeb.Data;
-using EncuestadorWeb;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using EncuestadorWeb.Services;
 
-    // // "DefaultConnection": "Data Source = C:\\Users\\lizet\\OneDrive\\Documentos\\EncuestadorWeb\\BaseDeDatos\\EncuestadorWeb.db"
+// // "DefaultConnection": "Data Source = C:\\Users\\lizet\\OneDrive\\Documentos\\EncuestadorWeb\\BaseDeDatos\\EncuestadorWeb.db"
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Registrar el contexto de la base de datos
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-// Registrar el contexto de la base de datos
-builder.Services.AddDbContext<AppDbContext>(options => 
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Registra el servicio SelectEncuestaAsig
+builder.Services.AddScoped<EncuestaService>();
+
 
 var app = builder.Build();
 

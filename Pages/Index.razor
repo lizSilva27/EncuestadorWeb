@@ -96,13 +96,13 @@
   public class Pregunta
   {
     public int Id { get; set; }
-    public string Texto { get; set; }
-    public List<Opcion> Opciones { get; set; }
+    public string Texto { get; set; } = string.Empty;
+    public List<Opcion>? Opciones { get; set; }
   }
 
   public class Opcion
   {
     public int Value { get; set; }
-    public string Texto { get; set; }
+    public string Texto { get; set; } = string.Empty;
   }
 }

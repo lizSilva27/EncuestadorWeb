@@ -27,8 +27,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXhQcnVlYmEucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lizet/OneDrive/Documentos/EncuestadorWeb/Pages/indexPrueba1.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcaW5kZXhQcnVlYmExLnJhem9y
+[C:/Users/lizet/OneDrive/Documentos/EncuestadorWeb/Pages/IndexPrueba1.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXhQcnVlYmExLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lizet/OneDrive/Documentos/EncuestadorWeb/Pages/SelectTabla.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VsZWN0VGFibGEucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lizet/OneDrive/Documentos/EncuestadorWeb/Shared/MainLayout.razor]
